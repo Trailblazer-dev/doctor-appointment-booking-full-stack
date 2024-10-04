@@ -14,6 +14,9 @@ const axiosClient = axios.create({
 
 
 const getCategory=()=>axiosClient.get('/categories?populate=*');
+const getDoctorList=()=>axiosClient.get('/doctors?populate=*')
 export default{
-    getCategory
+    getCategory,
+    getDoctorList
+
 }

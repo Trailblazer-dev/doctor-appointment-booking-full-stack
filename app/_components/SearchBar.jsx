@@ -36,9 +36,9 @@ function SearchBar() {
       </div>
       {/* Display list of category */}
 
-      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 md:gap-4">
-        {categoryList.map((item, index) => index<6&&(
-          <div key={index} className="flex flex-col text-center gap-2 items-center p-5 bg-blue-50 m-2 rounded-lg hover:scale-110 transition-all ease-in-out cursor-pointer ">
+      <div className="gap-2 mt-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 md:gap-4">
+        {categoryList.length>0?categoryList.map((item, index) => index<6&&(
+          <div key={index} className="flex flex-col text-center gap-2 items-center p-5 bg-blue-50 m-2 rounded-lg hover:scale-110 transition-all ease-in-out cursor-pointer shadow-md shadow-stone-400">
             <Image
               src={item.Icon?.[0]?.url}
               alt="icon"
@@ -47,7 +47,12 @@ function SearchBar() {
             />
             <label className="text-blue-600 text-sm">{item.Name}</label>
           </div>
-        ))}
+        )):
+        [1,2,3,4,5,6].map((item,index)=>(
+          <div className="h-[130px] w-[120px] bg-slate-200 animate-pulse rounded-lg" key={index}></div>
+        ))
+        
+        }
       </div>
     </div>
   );
