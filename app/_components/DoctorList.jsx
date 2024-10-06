@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React from "react";
 
-export default function DoctorList({ doctorList }) {
+export default function DoctorList({ doctorList,heading='Popular Doctors' }) {
   return (
     <div className="mb-10 px-8">
-      <h2 className="font-bold text-xl">Popular Doctors</h2>
+      <h2 className="font-bold text-xl">{heading}</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7 mt-4">
         {doctorList.length > 0
           ? doctorList.map((doctor, index) => (
