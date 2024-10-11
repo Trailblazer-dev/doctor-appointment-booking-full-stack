@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function DoctorList({ doctorList,heading='Popular Doctors' }) {
@@ -28,9 +29,11 @@ export default function DoctorList({ doctorList,heading='Popular Doctors' }) {
                     {doctor.Year_of_Experience}
                   </h2>
                   <h2 className="text-gray-500 text-sm">{doctor.Address}</h2>
-                  <h2 className="p-2 px-3 border-primary border-[1px] text-primary rounded-full w-full  text-center text-[11px] mt-2 cursor-pointer hover:bg-primary hover:text-white">
-                    Book Now
-                  </h2>
+                  <Link href={'/details/'+ doctor?.id} className="w-full">
+                    <h2 className="p-2 px-3 border-primary border-[1px] text-primary rounded-full w-full  text-center text-[11px] mt-2 cursor-pointer hover:bg-primary hover:text-white">
+                      Book Now
+                    </h2>
+                  </Link>
                 </div>
               </div>
             ))
