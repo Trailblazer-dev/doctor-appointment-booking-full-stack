@@ -12,7 +12,7 @@ function Details({ params }) {
 
   const getDoctorById = () => {
     GlobalApi.getDoctorById(params.recordId).then((resp) => {
-      console.log(resp);
+      console.log(resp.data.data);
       setDoctor(resp.data.data);
     });
   };
@@ -22,7 +22,7 @@ function Details({ params }) {
       <div className="grid grid-cols-1 md:grid-cols-4">
         {/* Doctor details */}
         <div className="col-span-3 ">
-          {doctor&&<DoctorDetail doctor={doctor} />}
+          {doctor && <DoctorDetail doctor={doctor}/>}
         </div>
         {/* Doctor suggestion */}
         <div>
