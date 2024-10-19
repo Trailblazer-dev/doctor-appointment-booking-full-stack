@@ -14,8 +14,8 @@ export default function DoctorList({ doctorList,heading='Popular Doctors' }) {
                 className="border-[1px] rounded-lg p-3 cursor-pointer hover:border-primary hover:shadow-sm transition-all ease-in-out"
               >
                 <Image
-                // [1].Image.url
-                  src={doctor.image?.url}
+                // [1].Image.url [0].image[0].url
+                  src={doctor.image[0]?.url}
                   alt="doctor"
                   width={500}
                   height={200}
