@@ -2,6 +2,7 @@
 import GlobalApi from "@/app/_utils/GlobalApi";
 import React, { useEffect, useState } from "react";
 import DoctorDetail from "../_components/DoctorDetail";
+import DoctorSuggestionList from "../_components/DoctorSuggestionList";
 
 function Details({ params }) {
    const [doctors, setDoctors] = useState([]); // Store the full list of doctors
@@ -36,7 +37,7 @@ function Details({ params }) {
   return (
     <div className="p-5 md:px-20">
       <h2 className="font-bold text-[22px]">Details</h2>
-      <div className="grid grid-cols-1 md:grid-cols-4">
+      <div className="grid grid-cols-1 lg:grid-cols-4">
         <div className="col-span-3">
           {loading ? (
             <p>Loading...</p> // Display loading message
@@ -45,7 +46,10 @@ function Details({ params }) {
           )}
         </div>
         {/* Doctor suggestion */}
-        <div>{/* You can add suggestions here */}</div>
+        <div className="col-span-1">
+          <DoctorSuggestionList/>
+          
+        </div>
       </div>
     </div>
   );
