@@ -12,11 +12,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { CalendarDays, Clock } from "lucide-react";
+import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
+import GlobalApi from "@/app/_utils/GlobalApi";
+import { toast } from "sonner";
+import { Textarea } from "@/components/ui/textarea";
 
-function BookAppointment() {
+function BookAppointment({ doctor }) {
   const [date, setDate] = useState(new Date());
   const [timeSlot, setTimeSlot] = useState();
   const [selectedTimeSlot, setSelectedTimeSlot] = useState();
+  const [note, setNote] = useState();
+  const { user } = useKindeBrowserClient();
 
   useEffect(() => {
     getTime();
@@ -45,6 +51,26 @@ function BookAppointment() {
     // const currentDate = new Date();
     return day <= new Date();
   };
+
+  const saveBooking = () => {
+    const data = {
+      data: {
+        UserName: user.given_name + " " + user.family_name,
+        Email: user.email,
+        Time: selectedTimeSlot,
+        Date: date,
+        doctor: doctor.id,
+        Note: note,
+      },
+    };
+    GlobalApi.bookAppointment(data).then((resp) => {
+      console.log(resp);
+      if (resp) {
+        toast("Booking confiramtion  will send you on Email");
+      }
+    });
+  };
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -95,13 +121,33 @@ function BookAppointment() {
             </div>
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="sm:justify-start">
+        <DialogFooter className="sm:justify-end">
           <DialogClose asChild>
             <>
-              <Button type="button" variant="secondary">
-                Close
-              </Button>
-              <Button type="button">Submit</Button>
+              {/* <textarea rows={3} cols={20} ></textarea> */}
+              <Textarea
+                className="w-full outline rounded-lg p-2 mb-4"
+                placeholder="Note"
+                value={note} // Set the value from state
+                onChange={(e) => setNote(e.target.value)}
+              />
+
+              <div className="flex justify-end gap-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="text-red-500 border-red-500"
+                >
+                  Close
+                </Button>
+                <Button
+                  type="button"
+                  disabled={!(date && selectedTimeSlot)}
+                  onClick={() => saveBooking()}
+                >
+                  Submit
+                </Button>
+              </div>
             </>
           </DialogClose>
         </DialogFooter>

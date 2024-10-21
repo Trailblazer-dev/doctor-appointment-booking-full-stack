@@ -62,7 +62,7 @@ function DoctorDetail({ doctor }) {
             ))}
           </div>
           
-          <BookAppointment/>
+          <BookAppointment doctor={doctor}/>
         </div>
         {/* Doctor description */}
       </div>
