@@ -18,10 +18,10 @@ import * as React from "react";
 
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
-  : "";
+  : "http://localhost:3000";
 
-export const KoalaWelcomeEmail = ({
-  userFirstname,
+export const EmailTemplate = ({
+  userFirstname=" Test User",
 }) => (
   <Html>
     <Head />
@@ -31,7 +31,8 @@ export const KoalaWelcomeEmail = ({
     <Body style={main}>
       <Container style={container}>
         <Img
-          src={`${baseUrl}/static/koala-logo.png`}
+          src={`${baseUrl}/logo.svgnpm install resend @react-email/components
+`}
           width="170"
           height="50"
           alt="Koala"
@@ -62,7 +63,7 @@ export const KoalaWelcomeEmail = ({
 );
 
 
-export default KoalaWelcomeEmail;
+export default EmailTemplate;
 
 const main = {
   backgroundColor: "#ffffff",
