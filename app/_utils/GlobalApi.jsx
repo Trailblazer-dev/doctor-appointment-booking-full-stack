@@ -19,13 +19,18 @@ const getDoctorByCategory = (category) =>
 const getDoctorById = (id) => axiosClient.get("/doctors?populate=*");
 
 const bookAppointment = (data) => axiosClient.post("/appointments", data);
+// const getUserBookingList = (userEmail) =>
+//   axiosClient.get(
+//     "/appointments?filters[Email][$eq]=" +
+//       userEmail +
+//       "&populate[doctor][populate][image][populate][0]=url&populate=*"
+//   );
 const getUserBookingList = (userEmail) =>
   axiosClient.get(
-    "/appointments?[filters][Email][$eq]=" +
-      userEmail +
-      "&populate[doctor][populate][image][populate][0]=url&populate=*"
+    `/appointments?filters[Email][$eq]=${userEmail}&populate=doctor.image`
   );
 
+// 
 const deleteBooking = (id) => axiosClient.delete("/appointments/" + id);
 
 const sendEmail = (data) => axios.post("/api/sendEmail", data);
