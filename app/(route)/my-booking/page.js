@@ -14,6 +14,7 @@ function MyBooking() {
 
   const getUserBookingList = ()=>{
     GlobalApi.getUserBookingList(user?.email).then(resp=>{
+      console.log("getUserBookingList")
       console.log(resp.data.data);
       setBookingList(resp.data.data);
     })
@@ -28,7 +29,7 @@ function MyBooking() {
      type=='upcoming'? new Date(item.Date)>= new Date()
      : new Date(item.Date)<= new Date()
     ));
-    console.log(result);
+    // console.log(result);
     return result;
   }
   return (
@@ -40,10 +41,16 @@ function MyBooking() {
           <TabsTrigger value="expired">Expired</TabsTrigger>
         </TabsList>
         <TabsContent value="upcoming">
-          <BookingList bookingList={filterUserBooking('upcoming')}/>
+          <BookingList bookingList={filterUserBooking('upcoming')}
+          updateRecord={()=>getUserBookingList()}
+          expired={false}
+          />
         </TabsContent>
         <TabsContent value="expired">
-          <BookingList bookingList={filterUserBooking('expired')}/>
+          <BookingList bookingList={filterUserBooking('expired')}
+          updateRecord={()=>getUserBookingList()}
+          expired={true}
+          />
         </TabsContent>
       </Tabs>
     </div>

@@ -1,13 +1,30 @@
-import { Calendar } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Calendar, Clock, MapPin } from "lucide-react";
+import moment from "moment";
 import Image from "next/image";
 import React from "react";
+import CancelAppointment from "./CancelAppointment";
+import GlobalApi from "@/app/_utils/GlobalApi";
+import { toast } from "sonner";
 
-function BookingList({ bookingList }) {
+function BookingList({ bookingList,expired,updateRecord}) {
+  const OnDeleteBooking = (item) => {
+    // console.log(item);
+    GlobalApi.deleteBooking(item.id).then(resp=>{
+      console.log("onDeleteBooking")
+      console.log(resp);
+      if(resp){
+        toast('Booking deleted successfully!');
+        updateRecord()
+      }
+    })
+
+  }
   return (
     <div>
       {bookingList &&
         bookingList.map((item, index) => (
-          <div>
+          <div className="flex gap-4 items-center border p-5 m-3 rounded-lg">
             {/* [1].doctor.image[0].url */}
             <Image
               src={item.doctor.image[0]?.url}
@@ -16,11 +33,18 @@ function BookingList({ bookingList }) {
               alt="doctor-image"
               className="rounded-full object-cover h-[70px] w-[70px]"
             />
-            <div>
-              <h2 className="">{item.doctor.Name}</h2>
-              <h2>{item.doctor.Address}</h2>
-              <h2>
-                <Calendar/> Appointment On {item.Date}
+            <div className="flex flex-col gap-2 w-full">
+              <h2 className="font-bold text-[18px] flex justify-between items-center">{item.doctor.Name}
+                {!expired && <CancelAppointment onContinueClick={()=>OnDeleteBooking(item)}/>}
+              </h2>
+              <h2 className="flex gap-2 text-gray-500"> <MapPin className="text-primary h-5 w-5"/>
+                {item.doctor.Address}</h2>
+              <h2 className="flex gap-2 ">
+                <Calendar className="text-primary h-5 w-5"/> Appointment On: {moment(item.Date).format('DD-MM-YYYY')}
+              </h2>
+              <h2 className="flex gap-2 ">
+                <Clock className="text-primary h-5 w-5"/> At Time: 
+                {item.Time}
               </h2>
             </div>
           </div>
